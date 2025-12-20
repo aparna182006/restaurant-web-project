@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login | Tasty Bites</title>
+
+  <!-- Link to External CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Title -->
+  <h1 class="title">Welcome to Tasty Bites Restaurant</h1>
+
+  <!-- Login Form -->
+  <form class="login-box" onsubmit="return validateLogin()" autocomplete="off">
+
+    <h2>Login</h2>
+
+    <input id="user_name" type="text" placeholder="Enter Username" autocomplete="new username">
+    <input id="password" type="password" placeholder="Enter Password" autocomplete="new-password">
+
+    <button type="submit" onclick="saveUser()">Login</button>
+
+  </form>
+
+  <!-- Error Text -->
+  <p id="error"></p>
+
+  <!-- JavaScript -->
+  <script>
+    function validateLogin() { /*read user name and password*/
+      let email = document.getElementById("user_name").value.trim();
+      let password = document.getElementById("password").value.trim();
+
+      if (email === "" || password === "") {     /*checks the user and password empty ,send error msg*/
+        document.getElementById("error").innerText = "Please enter email and password";
+        document.getElementById("error").style.color = "red";
+        return false;
+      }
+
+      window.location.href = "restaurant.html"; /*login is right means go to next page*/
+      return false;
+    }
+
+    function saveUser() { /*save user name*/
+      let uname = document.getElementById("user_name").value.trim();
+      sessionStorage.setItem("customer_name", uname);
+    }
+
+    window.onload = () => {  /*clears page when we open it*/
+      document.getElementById("user_name").value = "";
+      document.getElementById("password").value = "";
+    };
+  </script>
+
+</body>
+</html>
