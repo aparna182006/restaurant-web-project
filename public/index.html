@@ -96,17 +96,32 @@
     </form>
   </div>
 </section>
-
 <!-- LOGIN POPUP -->
 <div id="loginModal" class="login-modal">
   <div class="login-box">
     <span class="close-btn" onclick="closeLogin()">✖</span>
     <h2>Login</h2>
-    <input type="email" id="loginEmail" placeholder="Email">
-    <input type="password" id="loginPassword" placeholder="Password">
+
+    <input
+      type="email"
+      id="loginEmail"
+      placeholder="Email"
+      autocomplete="off"
+      value=""
+    >
+
+    <input
+      type="password"
+      id="loginPassword"
+      placeholder="Password"
+      autocomplete="new-password"
+      value=""
+    >
+
     <button onclick="login()">Login</button>
   </div>
 </div>
+
 
 <!-- ✅ ONLY THIS SCRIPT -->
 <script src="app.js"></script>

@@ -80,8 +80,11 @@ function submitFeedback(e) {
 
 /* LOGIN */
 function openLogin() {
+  document.getElementById("loginEmail").value = "";
+  document.getElementById("loginPassword").value = "";
   document.getElementById("loginModal").style.display = "block";
 }
+
 
 function closeLogin() {
   document.getElementById("loginModal").style.display = "none";
