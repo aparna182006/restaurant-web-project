@@ -1,61 +1,181 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Login | Tasty Bites</title>
-
-  <!-- Link to External CSS -->
+  <meta charset="UTF-8">
+  <title>Tasty Bites</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-  <!-- Title -->
-  <h1 class="title">Welcome to Tasty Bites Restaurant</h1>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="#home">Home</a>
+  <a href="#veg">Veg</a>
+  <a href="#nonveg">Non-Veg</a>
+  <a href="#desserts">Desserts</a>
+  <a href="#snacks">Snacks</a>
+  <span class="cart-btn" onclick="toggleCart()">🛒 Cart (<span id="cart-count">0</span>)</span>
+</nav>
 
-  <!-- Login Form -->
-  <form class="login-box" onsubmit="return validateLogin()" autocomplete="off">
+<!-- HOME -->
+<section id="home" class="home-section">
+  <h1 class="main-title">Tasty Bites Restaurant</h1>
+</section>
 
-    <h2>Login</h2>
+<!-- VEG -->
+<section id="veg">
+  <h2 class="section-title green">Veg Items</h2>
+  <div class="items-container">
+    <div class="item-card"><img src="image/idli.jpg"><p>Idli – ₹50</p><button onclick="addToCart('Idli',50)">Add to Cart</button></div>
+    <div class="item-card"><img src="image/dosa.jpg"><p>Dosa – ₹70</p><button onclick="addToCart('Dosa',70)">Add to Cart</button></div>
+    <div class="item-card"><img src="image/veg pulao.jpg"><p>Veg Pulao – ₹130</p><button onclick="addToCart('Veg Pulao',130)">Add to Cart</button></div>
+    <div class="item-card"><img src="image/veg pizza.jpg"><p>Veg Pizza – ₹180</p><button onclick="addToCart('Veg Pizza',180)">Add to Cart</button></div>
+    <div class="item-card"><img src="image/veg burger.jpg"><p>Veg Burger – ₹140</p><button onclick="addToCart('Veg Burger',140)">Add to Cart</button></div>
+  </div>
+</section>
 
-    <input id="user_name" type="text" placeholder="Enter Username" autocomplete="new username">
-    <input id="password" type="password" placeholder="Enter Password" autocomplete="new-password">
+<!-- NON VEG -->
+<section id="nonveg">
+  <h2 class="section-title red">Non-Veg Items</h2>
+  <div class="items-container">
+    <div class="item-card"><img src="image/chicken biryani.jpg"><p>Chicken Biryani – ₹220</p><button onclick="addToCart('Chicken Biryani',220)">Add to Cart</button></div>
+    <div class="item-card"><img src="image/mutton biryani.jpg"><p>Mutton Biryani – ₹280</p><button onclick="addToCart('Mutton Biryani',280)">Add to Cart</button></div>
+    <div class="item-card"><img src="image/fish curry.jpg"><p>Fish Curry – ₹240</p><button onclick="addToCart('Fish Curry',240)">Add to Cart</button></div>
+    <div class="item-card"><img src="image/chicken kabab.jpg"><p>Chicken Kabab – ₹230</p><button onclick="addToCart('Chicken Kabab',230)">Add to Cart</button></div>
+    <div class="item-card"><img src="image/mutton kabab.jpg"><p>Mutton Kabab – ₹260</p><button onclick="addToCart('Mutton Kabab',260)">Add to Cart</button></div>
+  </div>
+</section>
 
-    <button type="submit" onclick="saveUser()">Login</button>
+<!-- DESSERTS -->
+<section id="desserts">
+  <h2 class="section-title purple">Desserts</h2>
+  <div class="items-container">
+    <div class="item-card"><img src="image/Gulab Jamun.jpg"><p>Gulab Jamun – ₹100</p><button onclick="addToCart('Gulab Jamun',100)">Add to Cart</button></div>
+    <div class="item-card"><img src="image/Brownie.jpg"><p>Brownie – ₹130</p><button onclick="addToCart('Brownie',130)">Add to Cart</button></div>
+    <div class="item-card"><img src="image/Ice Cream.jpg"><p>Ice Cream – ₹110</p><button onclick="addToCart('Ice Cream',110)">Add to Cart</button></div>
+    <div class="item-card"><img src="image/Kheer.jpg"><p>Kheer – ₹90</p><button onclick="addToCart('Kheer',90)">Add to Cart</button></div>
+    <div class="item-card"><img src="image/Donut.jpg"><p>Donut – ₹120</p><button onclick="addToCart('Donut',120)">Add to Cart</button></div>
+  </div>
+</section>
 
-  </form>
+<!-- SNACKS -->
+<section id="snacks">
+  <h2 class="section-title orange">Snacks</h2>
+  <div class="items-container">
+    <div class="item-card"><img src="image/Panipuri.jpg"><p>Panipuri – ₹40</p><button onclick="addToCart('Panipuri',40)">Add to Cart</button></div>
+    <div class="item-card"><img src="image/Bhelpuri.jpg"><p>Bhelpuri – ₹50</p><button onclick="addToCart('Bhelpuri',50)">Add to Cart</button></div>
+    <div class="item-card"><img src="image/Pav Bhaji.jpg"><p>Pav Bhaji – ₹120</p><button onclick="addToCart('Pav Bhaji',120)">Add to Cart</button></div>
+    <div class="item-card"><img src="image/Vada Pav.jpg"><p>Vada Pav – ₹45</p><button onclick="addToCart('Vada Pav',45)">Add to Cart</button></div>
+    <div class="item-card"><img src="image/Samosa.jpg"><p>Samosa – ₹50</p><button onclick="addToCart('Samosa',50)">Add to Cart</button></div>
+  </div>
+</section>
 
-  <!-- Error Text -->
-  <p id="error"></p>
+<!-- CART -->
+<div id="cart" class="cart">
+  <h3>🛒 Your Cart</h3>
+  <ul id="cart-items"></ul>
+  <p><strong>Total: ₹<span id="cart-total">0</span></strong></p>
+  <button onclick="clearCart()">Clear Cart</button>
+</div>
 
-  <!-- JavaScript -->
-  <script>
-    function validateLogin() { /*read user name and password*/
-      let email = document.getElementById("user_name").value.trim();
-      let password = document.getElementById("password").value.trim();
+<!-- FEEDBACK -->
+<!-- FEEDBACK -->
+<section class="feedback-section" id="feedback">
+  <div class="feedback-box">
+    <h2>Feedback</h2>
 
-      if (email === "" || password === "") {     /*checks the user and password empty ,send error msg*/
-        document.getElementById("error").innerText = "Please enter email and password";
-        document.getElementById("error").style.color = "red";
-        return false;
-      }
+    <form onsubmit="submitFeedback(event)">
+      <div class="form-group">
+        <input type="text" id="fname" placeholder="Your Name" required>
+      </div>
 
-      window.location.href = "restaurant.html"; /*login is right means go to next page*/
-      return false;
-    }
+      <div class="form-group">
+        <select id="rating" required>
+          <option value="">Select Rating</option>
+          <option>⭐</option>
+          <option>⭐⭐</option>
+          <option>⭐⭐⭐</option>
+          <option>⭐⭐⭐⭐</option>
+          <option>⭐⭐⭐⭐⭐</option>
+        </select>
+      </div>
 
-    function saveUser() { /*save user name*/
-      let uname = document.getElementById("user_name").value.trim();
-      sessionStorage.setItem("customer_name", uname);
-    }
+      <div class="form-group">
+        <textarea id="message" placeholder="Your feedback..." required></textarea>
+      </div>
 
-    window.onload = () => {  /*clears page when we open it*/
-      document.getElementById("user_name").value = "";
-      document.getElementById("password").value = "";
-    };
-  </script>
+      <button type="submit" class="submit-btn">
+        Submit Order & Feedback
+      </button>
+    </form>
+  </div>
+</section>
+
+
+<!-- SCRIPT -->
+<script>
+let cart = [];
+let total = 0;
+
+function addToCart(item, price) {
+  cart.push({ item, price });
+  total += price;
+  document.getElementById("cart-count").innerText = cart.length;
+  document.getElementById("cart-total").innerText = total;
+  renderCart();
+}
+
+function renderCart() {
+  const list = document.getElementById("cart-items");
+  list.innerHTML = "";
+  cart.forEach((c, i) => {
+    list.innerHTML += `<li>${c.item} - ₹${c.price}
+      <button onclick="removeItem(${i})">❌</button></li>`;
+  });
+}
+
+function removeItem(i) {
+  total -= cart[i].price;
+  cart.splice(i, 1);
+  document.getElementById("cart-count").innerText = cart.length;
+  document.getElementById("cart-total").innerText = total;
+  renderCart();
+}
+
+function clearCart() {
+  cart = [];
+  total = 0;
+  document.getElementById("cart-count").innerText = 0;
+  document.getElementById("cart-total").innerText = 0;
+  document.getElementById("cart-items").innerHTML = "";
+}
+
+function toggleCart() {
+  document.getElementById("cart").classList.toggle("show");
+}
+
+function submitFeedback(e) {
+  e.preventDefault();
+  if (cart.length === 0) return alert("Cart is empty");
+
+  fetch("/save-order", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      cart, total,
+      name: fname.value,
+      rating: rating.value,
+      feedback: message.value
+    })
+  })
+  .then(r => r.json())
+  .then(() => {
+    alert("Order Saved ✅");
+    clearCart();
+    fname.value = rating.value = message.value = "";
+  });
+}
+</script>
 
 </body>
 </html>

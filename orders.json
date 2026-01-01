@@ -1,141 +1,23 @@
 [
   {
-    "items": [
+    "cart": [
       {
-        "name": "Dosa",
-        "price": 70
+        "item": "Pav Bhaji",
+        "price": 120
       },
       {
-        "name": "Mutton Biryani",
-        "price": 280
-      },
-      {
-        "name": "Ice Cream",
-        "price": 110
-      },
-      {
-        "name": "Vada Pav",
-        "price": 45
-      }
-    ],
-    "total": 505,
-    "note": "",
-    "time": "14/12/2025, 11:50:49 pm"
-  },
-  {
-    "items": [
-      {
-        "name": "Idli",
+        "item": "Bhelpuri",
         "price": 50
       },
       {
-        "name": "Chicken Biryani",
-        "price": 220
-      },
-      {
-        "name": "Gulab Jamun",
-        "price": 100
-      },
-      {
-        "name": "Pav Bhaji",
-        "price": 120
+        "item": "Panipuri",
+        "price": 40
       }
     ],
-    "total": 490,
-    "note": "",
-    "time": "15/12/2025, 9:16:10 am"
-  },
-  {
-    "items": [
-      {
-        "name": "Dosa",
-        "price": 70
-      },
-      {
-        "name": "Mutton Biryani",
-        "price": 280
-      },
-      {
-        "name": "Ice Cream",
-        "price": 110
-      },
-      {
-        "name": "Bhelpuri",
-        "price": 50
-      },
-      {
-        "name": "Pav Bhaji",
-        "price": 120
-      }
-    ],
-    "total": 630,
-    "note": "",
-    "time": "15/12/2025, 9:18:26 am"
-  },
-  {
-    "items": [
-      {
-        "name": "Mutton Biryani",
-        "price": 280
-      },
-      {
-        "name": "Chicken Kabab",
-        "price": 230
-      },
-      {
-        "name": "Gulab Jamun",
-        "price": 100
-      },
-      {
-        "name": "Brownie",
-        "price": 130
-      },
-      {
-        "name": "Ice Cream",
-        "price": 110
-      },
-      {
-        "name": "Kheer",
-        "price": 90
-      },
-      {
-        "name": "Donut",
-        "price": 120
-      },
-      {
-        "name": "Bhelpuri",
-        "price": 50
-      }
-    ],
-    "total": 1110,
-    "note": "I want to prepare my food with some love!!!",
-    "time": "15/12/2025, 9:40:46 am"
-  },
-  {
-    "items": [
-      {
-        "name": "Dosa",
-        "price": 70
-      },
-      {
-        "name": "Veg Pulao",
-        "price": 130
-      },
-      {
-        "name": "Mutton Biryani",
-        "price": 280
-      },
-      {
-        "name": "Brownie",
-        "price": 130
-      },
-      {
-        "name": "Pav Bhaji",
-        "price": 120
-      }
-    ],
-    "total": 730,
-    "note": "",
-    "time": "20/12/2025, 11:21:47 am"
+    "total": 210,
+    "name": "aparna",
+    "rating": "⭐⭐⭐⭐⭐",
+    "feedback": "very tasty",
+    "time": "1/1/2026, 10:31:13 am"
   }
 ]

@@ -5,42 +5,33 @@ const path = require("path");
 const app = express();
 const PORT = 3000;
 
-app.use(express.json()); // VERY IMPORTANT
+app.use(express.json());
+app.use(express.static("public"));
 
-// Serve public folder
-app.use(express.static(path.join(__dirname, "public")));
+const ORDERS_FILE = path.join(__dirname, "orders.json");
 
-// Test route
-app.get("/test", (req, res) => {
-    res.send("OK");
-});
-
-// Save order route
 app.post("/save-order", (req, res) => {
-    try {
-        const filePath = path.join(__dirname, "orders.json");
-        let orders = [];
+  const newOrder = req.body;
 
-        if (fs.existsSync(filePath)) {
-            const data = fs.readFileSync(filePath, "utf8");
-            if (data.trim()) {
-                orders = JSON.parse(data);
-            }
-        }
+  // Read existing orders
+  let orders = [];
+  if (fs.existsSync(ORDERS_FILE)) {
+    const data = fs.readFileSync(ORDERS_FILE, "utf-8");
+    orders = JSON.parse(data);
+  }
 
-        orders.push(req.body);
+  // Add new order
+  orders.push({
+    ...newOrder,
+    time: new Date().toLocaleString()
+  });
 
-        fs.writeFileSync(filePath, JSON.stringify(orders, null, 2));
+  // Save back to file
+  fs.writeFileSync(ORDERS_FILE, JSON.stringify(orders, null, 2));
 
-        res.json({ success: true });
-    } catch (err) {
-        console.error("SAVE ERROR:", err);
-        res.status(500).json({ success: false });
-    }
+  res.json({ message: "Order saved successfully" });
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
-
-
