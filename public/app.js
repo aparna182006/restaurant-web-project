@@ -1,109 +1,97 @@
 let cart = [];
 let total = 0;
 
-/* =====================
-   ADD TO CART
-===================== */
+/* ADD TO CART */
 function addToCart(item, price) {
   cart.push({ item, price });
   total += price;
-
   document.getElementById("cart-count").innerText = cart.length;
   document.getElementById("cart-total").innerText = total;
-
   renderCart();
 }
 
 function renderCart() {
   const list = document.getElementById("cart-items");
   list.innerHTML = "";
-
-  cart.forEach((c, index) => {
-    const li = document.createElement("li");
-    li.innerHTML = `
-      ${c.item} - ₹${c.price}
-      <button onclick="removeItem(${index})">❌</button>
-    `;
-    list.appendChild(li);
+  cart.forEach((c, i) => {
+    list.innerHTML += `<li>${c.item} - ₹${c.price}
+      <button onclick="removeItem(${i})">❌</button></li>`;
   });
 }
 
-function removeItem(index) {
-  total -= cart[index].price;
-  cart.splice(index, 1);
-
+function removeItem(i) {
+  total -= cart[i].price;
+  cart.splice(i, 1);
   document.getElementById("cart-count").innerText = cart.length;
   document.getElementById("cart-total").innerText = total;
   renderCart();
 }
 
-/* =====================
-   PLACE ORDER (IMPORTANT)
-===================== */
-function placeOrder() {
-  const feedback = document.getElementById("feedback").value;
+function clearCart() {
+  cart = [];
+  total = 0;
+  document.getElementById("cart-count").innerText = 0;
+  document.getElementById("cart-total").innerText = 0;
+  document.getElementById("cart-items").innerHTML = "";
+}
+
+function toggleCart() {
+  document.getElementById("cart").classList.toggle("show");
+}
+
+/* SUBMIT FEEDBACK + SAVE ORDER */
+function submitFeedback(e) {
+  e.preventDefault();
 
   if (cart.length === 0) {
     alert("Cart is empty");
     return;
   }
 
+  const orderData = {
+    cart,
+    total,
+    name: fname.value,
+    rating: rating.value,
+    feedback: message.value
+  };
+
   fetch("/save-order", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      cart: cart,
-      total: total,
-      feedback: feedback
-    })
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(orderData)
   })
     .then(res => res.json())
     .then(data => {
       alert(data.message);
+
       cart = [];
       total = 0;
-      renderCart();
-      document.getElementById("feedback").value = "";
+      document.getElementById("cart-count").innerText = 0;
+      document.getElementById("cart-total").innerText = 0;
+      document.getElementById("cart-items").innerHTML = "";
+
+      fname.value = "";
+      rating.value = "";
+      message.value = "";
     })
-    .catch(err => console.error(err));
+    .catch(() => alert("Error saving order"));
 }
 
-/* =====================
-   SUBMIT FEEDBACK
-===================== */
-function submitFeedback(e) {
-  e.preventDefault();
-
-  const name = document.getElementById("fname").value;
-  const rating = document.getElementById("rating").value;
-  const message = document.getElementById("message").value;
-
-  fetch("/save-feedback", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      name,
-      rating,
-      message
-    })
-  })
-    .then(res => res.json())
-    .then(() => {
-      alert("Feedback submitted ❤️");
-
-      document.getElementById("fname").value = "";
-      document.getElementById("rating").value = "";
-      document.getElementById("message").value = "";
-    });
+/* LOGIN */
+function openLogin() {
+  document.getElementById("loginModal").style.display = "block";
 }
 
-/* =====================
-   TOGGLE CART
-===================== */
-function toggleCart() {
-  document.getElementById("cart").classList.toggle("show");
+function closeLogin() {
+  document.getElementById("loginModal").style.display = "none";
+}
+
+function login() {
+  if (!loginEmail.value || !loginPassword.value) {
+    alert("Please enter email and password");
+    return;
+  }
+  alert("Login successful ✅");
+  closeLogin();
 }

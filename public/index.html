@@ -14,6 +14,8 @@
   <a href="#nonveg">Non-Veg</a>
   <a href="#desserts">Desserts</a>
   <a href="#snacks">Snacks</a>
+
+  <span class="login-btn" onclick="openLogin()">Login</span>
   <span class="cart-btn" onclick="toggleCart()">🛒 Cart (<span id="cart-count">0</span>)</span>
 </nav>
 
@@ -79,103 +81,34 @@
 </div>
 
 <!-- FEEDBACK -->
-<!-- FEEDBACK -->
 <section class="feedback-section" id="feedback">
   <div class="feedback-box">
     <h2>Feedback</h2>
-
     <form onsubmit="submitFeedback(event)">
-      <div class="form-group">
-        <input type="text" id="fname" placeholder="Your Name" required>
-      </div>
-
-      <div class="form-group">
-        <select id="rating" required>
-          <option value="">Select Rating</option>
-          <option>⭐</option>
-          <option>⭐⭐</option>
-          <option>⭐⭐⭐</option>
-          <option>⭐⭐⭐⭐</option>
-          <option>⭐⭐⭐⭐⭐</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <textarea id="message" placeholder="Your feedback..." required></textarea>
-      </div>
-
-      <button type="submit" class="submit-btn">
-        Submit Order & Feedback
-      </button>
+      <input type="text" id="fname" placeholder="Your Name" required>
+      <select id="rating" required>
+        <option value="">Select Rating</option>
+        <option>⭐</option><option>⭐⭐</option><option>⭐⭐⭐</option>
+        <option>⭐⭐⭐⭐</option><option>⭐⭐⭐⭐⭐</option>
+      </select>
+      <textarea id="message" placeholder="Your feedback..." required></textarea>
+      <button type="submit">Submit</button>
     </form>
   </div>
 </section>
 
+<!-- LOGIN POPUP -->
+<div id="loginModal" class="login-modal">
+  <div class="login-box">
+    <span class="close-btn" onclick="closeLogin()">✖</span>
+    <h2>Login</h2>
+    <input type="email" id="loginEmail" placeholder="Email">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button onclick="login()">Login</button>
+  </div>
+</div>
 
-<!-- SCRIPT -->
-<script>
-let cart = [];
-let total = 0;
-
-function addToCart(item, price) {
-  cart.push({ item, price });
-  total += price;
-  document.getElementById("cart-count").innerText = cart.length;
-  document.getElementById("cart-total").innerText = total;
-  renderCart();
-}
-
-function renderCart() {
-  const list = document.getElementById("cart-items");
-  list.innerHTML = "";
-  cart.forEach((c, i) => {
-    list.innerHTML += `<li>${c.item} - ₹${c.price}
-      <button onclick="removeItem(${i})">❌</button></li>`;
-  });
-}
-
-function removeItem(i) {
-  total -= cart[i].price;
-  cart.splice(i, 1);
-  document.getElementById("cart-count").innerText = cart.length;
-  document.getElementById("cart-total").innerText = total;
-  renderCart();
-}
-
-function clearCart() {
-  cart = [];
-  total = 0;
-  document.getElementById("cart-count").innerText = 0;
-  document.getElementById("cart-total").innerText = 0;
-  document.getElementById("cart-items").innerHTML = "";
-}
-
-function toggleCart() {
-  document.getElementById("cart").classList.toggle("show");
-}
-
-function submitFeedback(e) {
-  e.preventDefault();
-  if (cart.length === 0) return alert("Cart is empty");
-
-  fetch("/save-order", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      cart, total,
-      name: fname.value,
-      rating: rating.value,
-      feedback: message.value
-    })
-  })
-  .then(r => r.json())
-  .then(() => {
-    alert("Order Saved ✅");
-    clearCart();
-    fname.value = rating.value = message.value = "";
-  });
-}
-</script>
-
+<!-- ✅ ONLY THIS SCRIPT -->
+<script src="app.js"></script>
 </body>
 </html>
