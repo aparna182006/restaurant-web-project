@@ -78,6 +78,8 @@
   <ul id="cart-items"></ul>
   <p><strong>Total: ₹<span id="cart-total">0</span></strong></p>
   <button onclick="clearCart()">Clear Cart</button>
+  <button onclick="placeOrder()">Place Order</button>
+
 </div>
 
 <!-- FEEDBACK -->
@@ -85,12 +87,15 @@
   <div class="feedback-box">
     <h2>Feedback</h2>
     <form onsubmit="submitFeedback(event)">
-      <input type="text" id="fname" placeholder="Your Name" required>
+
+
+      <input type="name" id="name" placeholder="name" required>
       <select id="rating" required>
         <option value="">Select Rating</option>
         <option>⭐</option><option>⭐⭐</option><option>⭐⭐⭐</option>
         <option>⭐⭐⭐⭐</option><option>⭐⭐⭐⭐⭐</option>
       </select>
+   
       <textarea id="message" placeholder="Your feedback..." required></textarea>
       <button type="submit">Submit</button>
     </form>

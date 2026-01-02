@@ -1,5 +1,6 @@
 let cart = [];
 let total = 0;
+let orderPlaced = false;   // 🔴 very important
 
 /* ADD TO CART */
 function addToCart(item, price) {
@@ -13,9 +14,13 @@ function addToCart(item, price) {
 function renderCart() {
   const list = document.getElementById("cart-items");
   list.innerHTML = "";
+
   cart.forEach((c, i) => {
-    list.innerHTML += `<li>${c.item} - ₹${c.price}
-      <button onclick="removeItem(${i})">❌</button></li>`;
+    list.innerHTML += `
+      <li>
+        ${c.item} - ₹${c.price}
+        <button onclick="removeItem(${i})">❌</button>
+      </li>`;
   });
 }
 
@@ -39,23 +44,51 @@ function toggleCart() {
   document.getElementById("cart").classList.toggle("show");
 }
 
-/* SUBMIT FEEDBACK + SAVE ORDER */
+/* 🟢 PLACE ORDER */
+function placeOrder() {
+  if (cart.length === 0) {
+    alert("Cart is empty ❌");
+    return;
+  }
+
+  orderPlaced = true;
+
+  alert("🎉 Order Successful!");
+
+  // show feedback after order
+  document.querySelector(".feedback-section").style.display = "block";
+
+  // close cart
+  document.getElementById("cart").classList.remove("show");
+}
+
+/* 🟢 SUBMIT FEEDBACK (ONLY AFTER ORDER) */
 function submitFeedback(e) {
   e.preventDefault();
 
-  if (cart.length === 0) {
-    alert("Cart is empty");
+  if (!orderPlaced) {
+    alert("Please place order first ❌");
+    return;
+  }
+
+  const name = document.getElementById("name");
+  const rating = document.getElementById("rating");
+  const message = document.getElementById("message");
+
+  if (name.value === "" || rating.value === "" || message.value === "") {
+    alert("Please fill all fields");
     return;
   }
 
   const orderData = {
     cart,
     total,
-    name: fname.value,
+    name: name.value,
     rating: rating.value,
     feedback: message.value
   };
 
+  // 🔴 THIS WAS MISSING
   fetch("/save-order", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -63,28 +96,34 @@ function submitFeedback(e) {
   })
     .then(res => res.json())
     .then(data => {
-      alert(data.message);
+      alert(data.message);   // "Order & Feedback saved successfully"
+
+      // reset everything
+      name.value = "";
+      rating.value = "";
+      message.value = "";
 
       cart = [];
       total = 0;
+      orderPlaced = false;
+
       document.getElementById("cart-count").innerText = 0;
       document.getElementById("cart-total").innerText = 0;
       document.getElementById("cart-items").innerHTML = "";
 
-      fname.value = "";
-      rating.value = "";
-      message.value = "";
+      document.querySelector(".feedback-section").style.display = "none";
     })
-    .catch(() => alert("Error saving order"));
+    .catch(err => {
+      console.error(err);
+      alert("❌ Server error. Order not saved");
+    });
 }
+
 
 /* LOGIN */
 function openLogin() {
-  document.getElementById("loginEmail").value = "";
-  document.getElementById("loginPassword").value = "";
   document.getElementById("loginModal").style.display = "block";
 }
-
 
 function closeLogin() {
   document.getElementById("loginModal").style.display = "none";
