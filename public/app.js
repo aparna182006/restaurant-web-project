@@ -1,6 +1,6 @@
 let cart = [];
 let total = 0;
-let orderPlaced = false;   // 🔴 very important
+let orderPlaced = false;   
 
 /* ADD TO CART */
 function addToCart(item, price) {
@@ -64,29 +64,38 @@ function placeOrder() {
 
 /* 🟢 SUBMIT FEEDBACK (ONLY AFTER ORDER) */
 function submitFeedback(e) {
-  e.preventDefault();
+e.preventDefault();
 
-  if (!orderPlaced) {
-    alert("Please place order first ❌");
-    return;
-  }
+if (!orderPlaced) {
+  alert("Please place order first ❌");
+  return;
+}
+
+let finalTotal = total;
+
+if (total > 1000) {
+  finalTotal = total * 0.9;
+  alert("🎉 10% Discount Applied!\nFinal Amount: ₹" + finalTotal);
+}
+
 
   const name = document.getElementById("name");
   const rating = document.getElementById("rating");
   const message = document.getElementById("message");
-
+  
   if (name.value === "" || rating.value === "" || message.value === "") {
     alert("Please fill all fields");
     return;
   }
 
   const orderData = {
-    cart,
-    total,
-    name: name.value,
-    rating: rating.value,
-    feedback: message.value
-  };
+  cart: cart,
+  total: finalTotal,
+  name: name.value,
+  rating: rating.value,
+  feedback: message.value
+};
+console.log(orderData);
 
   // 🔴 THIS WAS MISSING
   fetch("/save-order", {
@@ -137,3 +146,4 @@ function login() {
   alert("Login successful ✅");
   closeLogin();
 }
+
