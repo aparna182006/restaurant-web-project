@@ -24,7 +24,6 @@ app.post("/save-order", (req, res) => {
   // Add new order
   orders.push({
     ...newOrder,
-    time: new Date().toLocaleString()
   });
 
   // Save back to file
