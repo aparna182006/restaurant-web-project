@@ -139,11 +139,21 @@ function closeLogin() {
 }
 
 function login() {
-  if (!loginEmail.value || !loginPassword.value) {
-    alert("Please enter email and password");
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value.trim();
+
+  // Email validation: must contain @ and .com
+  if (!email.includes("@") || !email.endsWith(".com")) {
+    alert("Please enter a valid email with @ and .com");
     return;
   }
-  alert("Login successful ✅");
+
+  if (password === "") {
+    alert("Password cannot be empty");
+    return;
+  }
+
+  alert("Login successful!");
   closeLogin();
 }
 
